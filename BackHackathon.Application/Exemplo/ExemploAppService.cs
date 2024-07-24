@@ -3,7 +3,7 @@ using BackHackathon.Application.Exemplo.Dtos;
 
 namespace BackHackathon.Application.Exemplo;
 
-public class ExemploAuthService : IExemploAppService
+public class ExemploAppService : IExemploAppService
 {
     public async Task<AmbienteUsuarioResponseDto?> RecuperarAmbienteUsuario(AmbienteUsuarioRequestDto requestDtoDto)
     {

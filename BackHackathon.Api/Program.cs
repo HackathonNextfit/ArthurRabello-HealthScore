@@ -4,7 +4,7 @@ using BackHackathon.Application.Exemplo;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAuthAppService, AuthAppService>();
-builder.Services.AddScoped<IExemploAppService, ExemploAuthService>();
+builder.Services.AddScoped<IExemploAppService, ExemploAppService>();
 
 builder.Services.AddControllers();
 

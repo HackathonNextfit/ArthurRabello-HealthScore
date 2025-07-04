@@ -1,6 +1,6 @@
 #### Descrição do Projeto
 Este projeto é uma web api desenvolvida para servir como exemplo ou base para o Hackathon.
-Untiliza ASP.NET Core para fornecer serviços de autenticação e exemplop de chamadas http básicas.
+Utiliza ASP.NET Core para fornecer serviços de autenticação e exemplo de chamadas http básicas.
 
 ---
 

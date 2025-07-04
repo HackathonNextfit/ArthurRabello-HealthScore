@@ -9,7 +9,7 @@ public class AuthAppService : IAuthAppService
     public async Task<LoginResponseDto?> EfetuarLogin(LoginRequestDto requestDto)
     {
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.sandbox.appnext.fit/api/token");
+        var request = new HttpRequestMessage(HttpMethod.Post, "https://api-sandbox.appnext.fit/api/token");
         
         var collection = new List<KeyValuePair<string, string>>
         {

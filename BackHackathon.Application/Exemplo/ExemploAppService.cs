@@ -8,7 +8,7 @@ public class ExemploAppService : IExemploAppService
     public async Task<AmbienteUsuarioResponseDto?> RecuperarAmbienteUsuario(AmbienteUsuarioRequestDto requestDtoDto)
     {
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://api.sandbox.appnext.fit/api/usuario/RecuperarAmbienteUsuario");
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://api-sandbox.appnext.fit/api/usuario/RecuperarAmbienteUsuario");
         
         request.Headers.Add("Authorization", requestDtoDto.Authorization);
         request.Headers.Add("CodigoUsuario", requestDtoDto.CodigoUsuario.ToString());
@@ -25,7 +25,7 @@ public class ExemploAppService : IExemploAppService
     public async Task<EnumsResponseDto?> RecuperarEnums(EnumsRequestDto requestDto)
     {
         var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://api.sandbox.appnext.fit/api/Enum/RecuperarTodos");
+        var request = new HttpRequestMessage(HttpMethod.Get, "https://api-sandbox.appnext.fit/api/Enum/RecuperarTodos");
         
         request.Headers.Add("Authorization", requestDto.Authorization);
         request.Headers.Add("Accept", "application/json");

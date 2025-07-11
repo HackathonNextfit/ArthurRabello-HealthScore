@@ -15,15 +15,29 @@ public class AuthAppService : IAuthAppService
         {
             new("username", requestDto.Usuario),
             new("password", requestDto.Senha),
+            new("codigotenant",requestDto.CodigoTenant),
             new("grant_type", "password")
         };
 
         request.Content = new FormUrlEncodedContent(collection);
         var response = await client.SendAsync(request);
-        response.EnsureSuccessStatusCode();
+        Console.WriteLine(response.RequestMessage);
+        //response.EnsureSuccessStatusCode();
         var responseContent = await response.Content.ReadAsStringAsync();
         var responseDto = JsonSerializer.Deserialize<LoginResponseDto>(responseContent);
-        
+
         return responseDto;
+    }
+
+    public async Task<string> RecuperarToken()
+    {
+        var responseDto = await EfetuarLogin(new LoginRequestDto()
+        {
+            Usuario = "angelo.darosa@nextfit.com.br",
+            Senha = "123456r",
+            CodigoTenant = "7775"
+        });
+        var acessToken = "Bearer " + responseDto?.AccessToken;
+        return acessToken ?? string.Empty;
     }
 }

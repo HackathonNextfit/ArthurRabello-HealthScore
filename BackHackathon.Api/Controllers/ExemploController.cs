@@ -1,7 +1,6 @@
 ﻿using BackHackathon.Application.Exemplo;
 using BackHackathon.Application.Exemplo.Dtos;
 using Microsoft.AspNetCore.Mvc;
-
 namespace BackHackathon.Api.Controllers;
 
 [ApiController]

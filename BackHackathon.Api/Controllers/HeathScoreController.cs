@@ -108,6 +108,7 @@ public class HeathScoreController : ControllerBase
 
         return Ok(resultado);
     }
+    //Teste da rota da avaliação fisica
     [HttpGet("{alunoId}")]
     public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
     {

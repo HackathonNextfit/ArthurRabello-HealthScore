@@ -66,7 +66,7 @@ public class RecuperarPesquisaService : IRecuperarPesquisaService
             return clientes.Where(cliente => cliente.Id == PessoaId).ToList();
         });
     }
-    public async Task<List<Cliente>> FaixaScore(int alunoId)
+    public async Task<List<Cliente>> Faixa(int alunoId)
     {
         var clientes = await RecuperarClientesAtivos();
         var clienteFiltrados = clientes.Where(clientes => clientes.Id == alunoId).ToList();

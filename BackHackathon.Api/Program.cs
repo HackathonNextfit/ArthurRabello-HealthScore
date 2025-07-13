@@ -9,6 +9,7 @@ builder.Services.AddScoped<IRecuperarPesquisaService, RecuperarPesquisaService>(
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICalculoScoreService, CalculoScoreService>();
 builder.Services.AddScoped<IExemploAppService, ExemploAppService>();
+builder.Services.AddScoped<IAvaliacaoFisicaService, AvaliacaoFisicaService>();
 
 builder.Services.AddControllers();
 

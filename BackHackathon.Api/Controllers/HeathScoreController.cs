@@ -15,11 +15,13 @@ public class HeathScoreController : ControllerBase
 {
     private readonly IRecuperarPesquisaService _IRecuperarPesquisaService;
     private readonly ICalculoScoreService _ICalculoStore;
+    private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
 
-    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService)
+    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService)
     {
         _IRecuperarPesquisaService = iRecuperarPesquisaService;
         _ICalculoStore = iCalculoScoreService;
+        _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
     }
 
     [HttpGet("{alunoId}")]
@@ -83,11 +85,11 @@ public class HeathScoreController : ControllerBase
     }
     //Retorna a Faixa de enjamento do cliente (Feito Pós Hackathon)
     [HttpGet("{alunoId}")]
-    public async Task<IActionResult> FaixaScore([FromServices] IMemoryCache cache, [FromRoute] int alunoId)
+    public async Task<IActionResult> Faixa([FromServices] IMemoryCache cache, [FromRoute] int alunoId)
     {
         if (!cache.TryGetValue("Alunos-Score", out List<Cliente?> clientesAtivos) || clientesAtivos == null)
         {
-            clientesAtivos = await _IRecuperarPesquisaService.FaixaScore(alunoId);
+            clientesAtivos = await _IRecuperarPesquisaService.Faixa(alunoId);
             await _ICalculoStore.CalcularScore(clientesAtivos);
             if (clientesAtivos == null)
                 return NotFound("Dados não encontrados.");
@@ -106,6 +108,15 @@ public class HeathScoreController : ControllerBase
 
         return Ok(resultado);
     }
-
+    [HttpGet("{alunoId}")]
+    public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
+    {
+        var avaliacaoFisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(alunoId);
+        if (avaliacaoFisica == null || !avaliacaoFisica.Any())
+        {
+            return NotFound("Nenhuma avaliação física encontrada para o aluno.");
+        }
+        return Ok(avaliacaoFisica);
+    }
 }
 

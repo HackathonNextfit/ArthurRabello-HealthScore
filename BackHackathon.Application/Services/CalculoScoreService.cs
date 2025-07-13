@@ -10,10 +10,12 @@ namespace BackHackathon.Application.Services
     public class CalculoScoreService : ICalculoScoreService
     {
         private readonly IRecuperarPesquisaService _IRecuperarPesquisaService;
+        private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
 
-        public CalculoScoreService(IRecuperarPesquisaService iRecuperarPesquisaService)
+        public CalculoScoreService(IRecuperarPesquisaService iRecuperarPesquisaService, IAvaliacaoFisicaService iAvaliacaoFisicaService)
         {
             _IRecuperarPesquisaService = iRecuperarPesquisaService;
+            _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
         }
 
         public async Task<List<Cliente?>> CalcularScore(List<Cliente?> listaCliente)
@@ -22,6 +24,7 @@ namespace BackHackathon.Application.Services
             {
                 cliente.Score = cliente.Score + await CalcularScorePresenca(cliente);
                 cliente.Score = cliente.Score + await CalcularScoreSemPresenca(cliente);
+                cliente.Score = cliente.Score + await CalculaScoreAvaliacaoFisica(cliente);
             }
             return listaCliente;
         }
@@ -42,5 +45,18 @@ namespace BackHackathon.Application.Services
             }
             return 0;
         }
+        public async Task<int> CalculaScoreAvaliacaoFisica(Cliente cliente)
+        {
+            var avaliacaofisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(cliente.Id);
+
+            if (avaliacaofisica == null || avaliacaofisica.Count == 0)
+                return 0;
+
+            if (avaliacaofisica.Any(av => av.DataValidade < DateTime.Now))
+                return -100;
+
+            return 50;
+        }
+        
     }
 }

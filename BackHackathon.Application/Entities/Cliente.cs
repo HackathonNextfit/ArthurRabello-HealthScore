@@ -12,7 +12,20 @@ namespace BackHackathon.Application.Entities
         public int Id { get; set; }
         [JsonPropertyName("ClienteParametro")]
         public ClienteParametro ClienteParametro { get; set; }
-        public int Score { get; set; } = 700;
+        private int _score = 700;
+        public int Score
+        {
+            get => _score;
+            set
+            {
+                if (value < 0)
+                    _score = 0;
+                else if (value > 1000)
+                    _score = 1000;
+                else
+                    _score = value;
+            }
+        }
         public string Faixa { get; set; } = "Engajamento médio";
     }
 

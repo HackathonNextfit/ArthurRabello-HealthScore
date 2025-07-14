@@ -10,10 +10,10 @@ namespace BackHackathon.Application.Services;
 
 public class AvaliacaoFisicaService : IAvaliacaoFisicaService
 {
-
     public async Task<List<AvaliacaoFisica>> RecuperaAvaliacaoFisica(int alunoId)
         {
             var client = new HttpClient();
+    
             var finalUrl = "https://api-sandbox.appnext.fit/api/avaliacaoFisica";
 
             var request = new HttpRequestMessage(HttpMethod.Get, finalUrl);
@@ -29,7 +29,7 @@ public class AvaliacaoFisicaService : IAvaliacaoFisicaService
             var responseDto = JsonSerializer.Deserialize<ResponseApi<List<AvaliacaoFisica?>>>(responseContent);
             var alunos = responseDto.Content.Where(alunos => alunos.CodigoCliente == alunoId).ToList();
 
-            return alunos;
+            return responseDto.Content;
         }
 }
 

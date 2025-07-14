@@ -9,6 +9,7 @@ namespace BackHackathon.Application.Services
         public Task<List<PessoaPresenca?>> RecuperarPessoaPresenca(int codigoPessoa);
         public Task<List<Cliente>> MostraScore(int PessoaId);
         public Task<List<Cliente>> Faixa(int alunoId);
-
+        public Task<List<Treino>> RecuperaTreino(int alunoId);
+        public Task<List<Contas>> RecuperarContasAbertas(int codigoCliente);
     }
 }

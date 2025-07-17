@@ -44,6 +44,68 @@ namespace BackHackathon.Application.Services
 
             return vendas;
         }
+<<<<<<< HEAD
+=======
+
+        public async Task<List<Contratos?>> RecuperaContratosClientes(int codigoCliente)
+        {
+            var client = new HttpClient();
+            var filter = $@"[
+                                {{ ""property"":""CodigoCliente"",""operator"":""equal"",""value"":{codigoCliente},""and"":true }},
+                                {{ ""property"":""Status"",""operator"":""in"",""value"":[1,3,4,5,6,7],""and"":true }}
+                            ]";
+
+            var fields = @"[
+                            ""Id"",
+                            ""DataValidade"",
+                            ""Status"",
+                            ""Tipo"",
+                            ""CodigoCliente"",
+                            ""ContratoBase.Id"",
+                            ""ContratoBase.Descricao"",
+                            ""ContratoBase.PermiteRenovar"",
+                            ""ContratoBase.Modalidade.Descricao"",
+                            ""Recorrente"",
+                            ""ContratoBase.Tipo"",
+                            ""ContratoBase.QtdeSessoes"",
+                            ""ContratoBase.TipoDuracao"",
+                            ""ContratoBase.TempoDuracao"",
+                            ""Modalidades.Tipo"",
+                            ""Modalidades.QtdePacoteAulas"",
+                            ""Modalidades.QtdePacoteAulasTotal"",
+                            ""ContratoBase.Modalidades.Modalidade.Id"",
+                            ""ContratoBase.Template.Id"",
+                            ""ContratoBase.Modalidades.Modalidade.Descricao"",
+                            ""Gympass"",
+                            ""TotalPass"",
+                            ""MotivoErro"",
+                            ""Bloqueios.MotivoBloqueio"",
+                            ""Bloqueios.Id"",
+                            ""RenovarAutomaticamente""
+                        ]";
+
+            var sort = @"[
+                            { ""property"":""DataValidade"", ""direction"":""desc"" }
+                         ]";
+
+            var encodedFilter = Uri.EscapeDataString(filter);
+            var encodedFields = Uri.EscapeDataString(fields);
+            var encodedSort = Uri.EscapeDataString(sort);
+
+            var finalUrl = $"https://api-sandbox.appnext.fit/api/contratocliente/v2/Listar?filter={encodedFilter}&fields={encodedFields}&sort={encodedSort}&limit=99&page=1";
+            var request = new HttpRequestMessage(HttpMethod.Get, finalUrl);
+            var authAppService = new AuthAppService();
+            var token = await authAppService.RecuperarToken();
+            request.Headers.Add("Authorization", token);
+            var response = await client.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseDto = JsonSerializer.Deserialize<ResponseApi<List<Contratos>>>(responseContent);
+            var contratosbloqueados = responseDto.Content
+                .Where(c => c.CodigoCliente == codigoCliente && c.Status == 5)
+                .ToList();
+            return contratosbloqueados;
+        }
+>>>>>>> c04f7dd
     }
 }
 

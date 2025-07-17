@@ -1,10 +1,7 @@
 ﻿using BackHackathon.Application.Entities;
-using BackHackathon.Application.Exemplo;
-using BackHackathon.Application.Exemplo.Dtos;
 using BackHackathon.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using System.Linq;
 namespace BackHackathon.Api.Controllers;
 
 
@@ -17,13 +14,23 @@ public class HeathScoreController : ControllerBase
     private readonly ICalculoScoreService _ICalculoStore;
     private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
     private readonly IVendasService _IVendasService;
+<<<<<<< HEAD
 
     public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService iVendasService)
+=======
+    private readonly IAgendamentoAulaService _IAgendamentoAulaService;
+
+    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService iVendasService, IAgendamentoAulaService iagendamentoAulaSerivce)
+>>>>>>> c04f7dd
     {
         _IRecuperarPesquisaService = iRecuperarPesquisaService;
         _ICalculoStore = iCalculoScoreService;
         _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
         _IVendasService = iVendasService;
+<<<<<<< HEAD
+=======
+        _IAgendamentoAulaService = iagendamentoAulaSerivce;
+>>>>>>> c04f7dd
     }
 
     //Lista todos os clientes e os Scores atuais dos mesmos
@@ -98,6 +105,42 @@ public class HeathScoreController : ControllerBase
         return Ok(resultado);
     }
     //[HttpGet("{alunoId}")]
+<<<<<<< HEAD
+=======
+    //public async Task<IActionResult> RecuperaAgendamentos([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IAgendamentoAulaService.RecuperaAgendamentos(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum agendamento encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaAgendamentoDesistente([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IAgendamentoAulaService.RecuperaAgendamentoDesistente(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum agendamento encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaContratosClientes([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IVendasService.RecuperaContratosClientes(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum contrato bloqueado encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+>>>>>>> c04f7dd
     //public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
     //{
     //    var avaliacaoFisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(alunoId);
@@ -140,5 +183,9 @@ public class HeathScoreController : ControllerBase
     //    }
     //    return Ok(contas);
     //}
+<<<<<<< HEAD
+=======
+
+>>>>>>> c04f7dd
 }
 

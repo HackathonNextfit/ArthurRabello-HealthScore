@@ -10,5 +10,9 @@ namespace BackHackathon.Application.Services
     public interface IVendasService
     {
         public Task<List<Vendas>> RecuperarVendas(int codigoCliente);
+<<<<<<< HEAD
+=======
+        public Task<List<Contratos?>> RecuperaContratosClientes(int codigoCliente);
+>>>>>>> c04f7dd
     }
 }

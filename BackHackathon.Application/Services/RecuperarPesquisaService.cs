@@ -86,6 +86,62 @@ public class RecuperarPesquisaService : IRecuperarPesquisaService
         }
         return clienteFiltrados;
     }
+
+   public async Task<List<Treino>> RecuperaTreino(int alunoId)
+    {
+        var client = new HttpClient();
+        var filter = $@"[
+                                            {{""property"":""CodigoCliente"",""operator"":""equal"",""value"":{alunoId},""and"":true}},
+                                            {{""property"":""Inativo"",""operator"":""equal"",""value"":false,""and"":true}}
+                                        ]";
+
+                                        var fields = Uri.EscapeDataString(@"[
+                                            ""Nome"",""SessaoAtual"",""CodigoCliente"",""DataCriacao"",""Usuario.Nome"",""Observacao"",
+                                            ""Id"",""QtdeSessoes"",""ControlaQtdeTreino"",""QtdeTotal"",""QtdeUtilizado"",
+                                            ""Status"",""TipoControle"",""DataVencto"",""DataInicio"",""Recomendado"",""Inativo""
+                                        ]");
+
+        var url = $"https://api-sandbox.appnext.fit/api/treino?filter={filter}&fields={fields}";
+
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+        var authAppService = new AuthAppService();
+        var token = await authAppService.RecuperarToken();
+
+        request.Headers.Add("Authorization", token);
+
+        var response = await client.SendAsync(request);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var responseDto = JsonSerializer.Deserialize<ResponseApi<List<Treino>>>(responseContent);
+        var dataInicio = DateTime.Now.AddDays(-7).Date;
+        var treinos = responseDto.Content.Where(treinos => treinos.DataCriacao > dataInicio).ToList();
+
+        return treinos;
+    }
+    public async Task<List<Contas>> RecuperarContasAbertas(int codigoCliente)
+    {
+        var client = new HttpClient();
+        var filter = "[{\"property\":\"Status\",\"operator\":\"in\",\"value\":[1,2,5],\"and\":true},{\"property\":\"DataVencimento\",\"operator\":\"greaterOrEqual\",\"value\":\"2025-07-01T22:21:04.627Z\",\"and\":true},{\"property\":\"DataVencimento\",\"operator\":\"lessOrEqual\",\"value\":\"2025-07-31T22:21:59.999Z\",\"and\":true}]";
+        var includes = "[\"Cliente\",\"TipoReceber\",\"ReceberRecebimento.MetodoPagamento\",\"ReceberRecebimento.MetodoPagamentoConfig\",\"Usuario\",\"ReceberRecebimento\"]";
+        var url = $"https://api-sandbox.appnext.fit/api/receber?filter={filter}&includes={includes}";
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+        var authAppService = new AuthAppService();
+        var token = await authAppService.RecuperarToken();
+
+        request.Headers.Add("Authorization", token);
+
+        var response = await client.SendAsync(request);
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var responseDto = JsonSerializer.Deserialize<ResponseApi<List<Contas>>>(responseContent);
+        var dataInicio = DateTime.Now.AddDays(-7).Date;
+        var contas = responseDto.Content.Where(contas => contas.DataCriacao > dataInicio && contas.CodigoCliente == codigoCliente).ToList();
+
+        return contas;
+    }
+
 }
 
 

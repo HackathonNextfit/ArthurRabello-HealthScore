@@ -1,10 +1,7 @@
 ﻿using BackHackathon.Application.Entities;
-using BackHackathon.Application.Exemplo;
-using BackHackathon.Application.Exemplo.Dtos;
 using BackHackathon.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using System.Linq;
 namespace BackHackathon.Api.Controllers;
 
 
@@ -16,25 +13,16 @@ public class HeathScoreController : ControllerBase
     private readonly IRecuperarPesquisaService _IRecuperarPesquisaService;
     private readonly ICalculoScoreService _ICalculoStore;
     private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
+    private readonly IVendasService _IVendasService;
+    private readonly IAgendamentoAulaService _IAgendamentoAulaService;
 
-    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService)
+    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService iVendasService, IAgendamentoAulaService iagendamentoAulaSerivce)
     {
         _IRecuperarPesquisaService = iRecuperarPesquisaService;
         _ICalculoStore = iCalculoScoreService;
         _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
-    }
-
-    [HttpGet("{alunoId}")]
-    public async Task<IActionResult> RecuperarClientesAtivos([FromRoute] int alunoId)
-    {
-        var result = await _IRecuperarPesquisaService.RecuperarClientesAtivos();
-
-        if (result == null)
-        {
-            return NotFound("Nenhum cliente ativo encontrado.");
-        }
-        var aluno = result.Where(registro => registro.Id == alunoId);
-        return Ok(aluno);
+        _IVendasService = iVendasService;
+        _IAgendamentoAulaService = iagendamentoAulaSerivce;
     }
 
     //Lista todos os clientes e os Scores atuais dos mesmos
@@ -108,16 +96,82 @@ public class HeathScoreController : ControllerBase
 
         return Ok(resultado);
     }
-    //Teste da rota da avaliação fisica
-    [HttpGet("{alunoId}")]
-    public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
-    {
-        var avaliacaoFisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(alunoId);
-        if (avaliacaoFisica == null || !avaliacaoFisica.Any())
-        {
-            return NotFound("Nenhuma avaliação física encontrada para o aluno.");
-        }
-        return Ok(avaliacaoFisica);
-    }
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaAgendamentos([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IAgendamentoAulaService.RecuperaAgendamentos(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum agendamento encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaAgendamentoDesistente([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IAgendamentoAulaService.RecuperaAgendamentoDesistente(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum agendamento encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaContratosClientes([FromRoute] int alunoId)
+    //{
+    //    var agendamentodeaula = await _IVendasService.RecuperaContratosClientes(alunoId);
+    //    if (agendamentodeaula == null || !agendamentodeaula.Any())
+    //    {
+    //        return NotFound("Nenhum contrato bloqueado encontrado para o aluno.");
+    //    }
+    //    return Ok(agendamentodeaula);
+    //}
+
+    //[HttpGet("{alunoId}")]
+    //public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
+    //{
+    //    var avaliacaoFisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(alunoId);
+    //    if (avaliacaoFisica == null || !avaliacaoFisica.Any())
+    //    {
+    //        return NotFound("Nenhuma avaliação física encontrada para o aluno.");
+    //    }
+    //    return Ok(avaliacaoFisica);
+    //}
+
+    //[HttpGet("{codigoCliente}")]
+    //public async Task<IActionResult> RecuperarVendas(int codigoCliente)
+    //{
+    //    var vendas = await _IVendasService.RecuperarVendas(codigoCliente);
+    //    if (vendas == null || !vendas.Any())
+    //    {
+    //        return NotFound("Nenhuma venda encontrada.");
+    //    }
+    //    return Ok(vendas);
+    //}
+
+    //[HttpGet("{codigoCliente}")]
+    //public async Task<IActionResult> RecuperarTreinos(int codigoCliente)
+    //{
+    //    var treinos = await _IRecuperarPesquisaService.RecuperaTreino(codigoCliente);
+    //    if (treinos == null || !treinos.Any())
+    //    {
+    //        return NotFound("Nenhuma treino encontrado.");
+    //    }
+    //    return Ok(treinos);
+    //}
+
+    //[HttpGet("{codigoCliente}")]
+    //public async Task<IActionResult> RecuperarContasAbertas(int codigoCliente)
+    //{
+    //    var contas = await _IRecuperarPesquisaService.RecuperarContasAbertas(codigoCliente);
+    //    if (contas == null || !contas.Any())
+    //    {
+    //        return NotFound("Nenhuma conta encontrada.");
+    //    }
+    //    return Ok(contas);
+    //}
+
 }
 

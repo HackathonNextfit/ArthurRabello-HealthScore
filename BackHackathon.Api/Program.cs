@@ -10,6 +10,8 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICalculoScoreService, CalculoScoreService>();
 builder.Services.AddScoped<IExemploAppService, ExemploAppService>();
 builder.Services.AddScoped<IAvaliacaoFisicaService, AvaliacaoFisicaService>();
+builder.Services.AddScoped<IVendasService, VendasService>();
+builder.Services.AddScoped<IAgendamentoAulaService, AgendamentoAulaService>();
 
 builder.Services.AddControllers();
 

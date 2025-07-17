@@ -141,10 +141,6 @@ public class RecuperarPesquisaService : IRecuperarPesquisaService
 
         return contas;
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> c04f7dd
 }
 
 

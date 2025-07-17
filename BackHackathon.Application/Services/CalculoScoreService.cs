@@ -12,22 +12,14 @@ namespace BackHackathon.Application.Services
         private readonly IRecuperarPesquisaService _IRecuperarPesquisaService;
         private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
         private readonly IVendasService _IVendaService;
-<<<<<<< HEAD
-
-        public CalculoScoreService(IRecuperarPesquisaService iRecuperarPesquisaService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService _ivendaService)
-=======
         private readonly IAgendamentoAulaService _IAgendamentoAulaService;
 
         public CalculoScoreService(IRecuperarPesquisaService iRecuperarPesquisaService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService _ivendaService, IAgendamentoAulaService _iagendamentoAulaService)
->>>>>>> c04f7dd
         {
             _IRecuperarPesquisaService = iRecuperarPesquisaService;
             _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
             _IVendaService = _ivendaService;
-<<<<<<< HEAD
-=======
             _IAgendamentoAulaService = _iagendamentoAulaService;
->>>>>>> c04f7dd
         }
 
         public async Task<List<Cliente?>> CalcularScore(List<Cliente?> listaCliente)
@@ -40,12 +32,9 @@ namespace BackHackathon.Application.Services
                 cliente.Score = cliente.Score + await CalculaScoreVenda(cliente);
                 cliente.Score = cliente.Score + await CalculaScoreTreino(cliente);
                 cliente.Score = cliente.Score + await CalculaScoreContasVencidas(cliente);
-<<<<<<< HEAD
-=======
                 cliente.Score = cliente.Score + await CalcularScoreAgendamentoAula(cliente);
                 cliente.Score = cliente.Score + await CalculaScoreAgendamentoDesistente(cliente);
                 cliente.Score = cliente.Score + await CalculaScoreContratoBloqueado(cliente);
->>>>>>> c04f7dd
             }
             return listaCliente;
         }
@@ -136,8 +125,6 @@ namespace BackHackathon.Application.Services
             return score;
 
         }
-<<<<<<< HEAD
-=======
         public async Task<int> CalcularScoreAgendamentoAula(Cliente cliente)
         {
             var agendamentos = await _IAgendamentoAulaService.RecuperaAgendamentos(cliente.Id);
@@ -179,8 +166,6 @@ namespace BackHackathon.Application.Services
             return 0;
 
         }
->>>>>>> c04f7dd
     }
 }
 //"Status": 4 suspenso
-//"Status": 5, bloqueado

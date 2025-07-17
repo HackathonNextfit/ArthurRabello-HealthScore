@@ -14,23 +14,15 @@ public class HeathScoreController : ControllerBase
     private readonly ICalculoScoreService _ICalculoStore;
     private readonly IAvaliacaoFisicaService _IAvaliacaoFisicaService;
     private readonly IVendasService _IVendasService;
-<<<<<<< HEAD
-
-    public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService iVendasService)
-=======
     private readonly IAgendamentoAulaService _IAgendamentoAulaService;
 
     public HeathScoreController(IRecuperarPesquisaService iRecuperarPesquisaService, ICalculoScoreService iCalculoScoreService, IAvaliacaoFisicaService iAvaliacaoFisicaService, IVendasService iVendasService, IAgendamentoAulaService iagendamentoAulaSerivce)
->>>>>>> c04f7dd
     {
         _IRecuperarPesquisaService = iRecuperarPesquisaService;
         _ICalculoStore = iCalculoScoreService;
         _IAvaliacaoFisicaService = iAvaliacaoFisicaService;
         _IVendasService = iVendasService;
-<<<<<<< HEAD
-=======
         _IAgendamentoAulaService = iagendamentoAulaSerivce;
->>>>>>> c04f7dd
     }
 
     //Lista todos os clientes e os Scores atuais dos mesmos
@@ -105,8 +97,6 @@ public class HeathScoreController : ControllerBase
         return Ok(resultado);
     }
     //[HttpGet("{alunoId}")]
-<<<<<<< HEAD
-=======
     //public async Task<IActionResult> RecuperaAgendamentos([FromRoute] int alunoId)
     //{
     //    var agendamentodeaula = await _IAgendamentoAulaService.RecuperaAgendamentos(alunoId);
@@ -140,7 +130,6 @@ public class HeathScoreController : ControllerBase
     //}
 
     //[HttpGet("{alunoId}")]
->>>>>>> c04f7dd
     //public async Task<IActionResult> RecuperaAvaliacaoFisica([FromRoute] int alunoId)
     //{
     //    var avaliacaoFisica = await _IAvaliacaoFisicaService.RecuperaAvaliacaoFisica(alunoId);
@@ -183,9 +172,5 @@ public class HeathScoreController : ControllerBase
     //    }
     //    return Ok(contas);
     //}
-<<<<<<< HEAD
-=======
-
->>>>>>> c04f7dd
 }
 

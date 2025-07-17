@@ -44,9 +44,6 @@ namespace BackHackathon.Application.Services
 
             return vendas;
         }
-<<<<<<< HEAD
-=======
-
         public async Task<List<Contratos?>> RecuperaContratosClientes(int codigoCliente)
         {
             var client = new HttpClient();
@@ -105,7 +102,6 @@ namespace BackHackathon.Application.Services
                 .ToList();
             return contratosbloqueados;
         }
->>>>>>> c04f7dd
     }
 }
 

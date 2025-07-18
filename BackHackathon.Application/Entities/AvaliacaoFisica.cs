@@ -8,6 +8,9 @@ namespace BackHackathon.Application.Entities
         public int CodigoCliente { get; set; }
         [JsonPropertyName("Inativo")]
         public bool Inativo { get; set; }
+        [JsonPropertyName("Data")]
+        public DateTime Data { get; set; }
+
         [JsonPropertyName("DataValidade")]
         public DateTime DataValidade { get; set; }
     }

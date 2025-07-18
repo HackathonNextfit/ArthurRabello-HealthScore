@@ -11,10 +11,7 @@ builder.Services.AddScoped<ICalculoScoreService, CalculoScoreService>();
 builder.Services.AddScoped<IExemploAppService, ExemploAppService>();
 builder.Services.AddScoped<IAvaliacaoFisicaService, AvaliacaoFisicaService>();
 builder.Services.AddScoped<IVendasService, VendasService>();
-<<<<<<< HEAD
-=======
 builder.Services.AddScoped<IAgendamentoAulaService, AgendamentoAulaService>();
->>>>>>> c04f7dd
 
 builder.Services.AddControllers();
 

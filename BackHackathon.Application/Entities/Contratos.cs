@@ -13,5 +13,7 @@ namespace BackHackathon.Application.Entities
         public int CodigoCliente { get; set; }
         [JsonPropertyName("Status")]
         public int Status { get; set; }
+        [JsonPropertyName("DataInicio")]
+        public DateTime DataInicio { get; set; }
     }
 }

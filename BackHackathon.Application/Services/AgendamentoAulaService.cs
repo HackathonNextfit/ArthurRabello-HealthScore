@@ -82,11 +82,12 @@ namespace BackHackathon.Application.Services
 
                 var content = await response.Content.ReadAsStringAsync();
                 var detalhes = JsonSerializer.Deserialize<ResponseApi<AgendamentoDesistentes>>(content);
-                var agendamentodesistentes = detalhes.Content.AgendaParticipantesCancelados.Where(p => p.CodigoCliente == codigoCliente && p.Status == 8).ToList();
-                desistencias.AddRange(agendamentodesistentes.Select(p => new AgendamentoDesistentes
-                {
-                    AgendaParticipantesCancelados = new List<AgendaParticipanteCancelado> { p }
-                }));
+                desistencias.Add(detalhes.Content);
+                //var agendamentodesistentes = detalhes.Content.AgendaParticipantesCancelados.Where(p => p.CodigoCliente == codigoCliente && p.Status == 8).ToList();
+                //desistencias.AddRange(agendamentodesistentes.Select(p => new AgendamentoDesistentes
+                //{
+                //    AgendaParticipantesCancelados = new List<AgendaParticipanteCancelado> { p }
+                //}));
             }
 
 
